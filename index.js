@@ -2,9 +2,10 @@ const express = require("express");
 const cors = require("cors");
 const bodyParse = require("body-parser");
 const app = express();
-const db = require("./queries");
 const https = require("https");
 const fs = require("fs");
+
+const routes = require("./routes");
 
 const port = 3000;
 
@@ -17,19 +18,10 @@ app.use(
   })
 );
 
-app.get("/", (request, response) => {
-  response.json({ info: "Node.js, Express, and Postgres API" });
-});
-
-app.get("/pessoas", db.getPessoas);
-app.get("/pessoas/:cpf", db.getPessoasByCpf);
-app.post("/pessoas", db.createPessoas);
-app.put("/pessoas/:id", db.updatePessoas);
-app.delete("/pessoas/:id", db.deletePessoas);
+app.use('/', routes);
 
 https
-  .createServer(
-    {
+  .createServer({
       key: fs.readFileSync("./privado.pem"),
       cert: fs.readFileSync("./publico.pem"),
     },
