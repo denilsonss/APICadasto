@@ -19,7 +19,7 @@ const getPessoas = async (request, response) => {
         nome,
         cpf
     } = query;
-
+    
     const results = await repository.getPessoas(nome, cpf);
     response.status(200).json(results);
 };
@@ -57,7 +57,7 @@ const createPessoas = async (request, response) => {
     } = pessoa;
 
     //Validacao
-    //const isValid = await pessoasSchema.isValid(pessoa)
+    //const isValid = await pessoasSchema.isValid(pessoa) 
 
     // if(!isValid){
     //     throw 'Dados invalidos';

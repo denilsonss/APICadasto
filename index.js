@@ -20,6 +20,12 @@ app.use(
 
 app.use('/', routes);
 
+app.use((err, req, res, next) => {
+  console.error(err.stack)
+  res.status(500).send('Something broke!')
+})
+
+
 https
   .createServer({
       key: fs.readFileSync("./privado.pem"),
